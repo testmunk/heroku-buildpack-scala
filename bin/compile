@@ -63,6 +63,8 @@ for DIR in $CACHED_DIRS; do
     mkdir -p $DIR
     cp -r $CACHE_DIR/$DIR/.  $DIR
   fi
+  echo "-----> Dropping ivy cache from the slug" 
+  rm -rf $SBT_USER_HOME/.ivy2
 done
 
 # these are preliminary checks. actual version check happens below when attempting to download sbt boot.properties
@@ -143,11 +145,7 @@ for DIR in $CACHED_DIRS ; do
   if [ -d $DIR ] ; then
     cp -r $DIR/.  $CACHE_DIR/$DIR
   fi
-done
-
-# drop ivy cache from slug for play only
-if is_play $BUILD_DIR && [ -d $SBT_USER_HOME/.ivy2 ] ; then
   echo "-----> Dropping ivy cache from the slug" 
-  rm -rf $SBT_USER_HOME/.ivy2 
-fi
+  rm -rf $SBT_USER_HOME/.ivy2
+done
 
